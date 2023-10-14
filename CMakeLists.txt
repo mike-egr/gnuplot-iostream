@@ -6,9 +6,16 @@ option(GnuPlotIostream_BuildTests "build gnuplot iostream tests" ON)
 option(GnuPlotIostream_BuildExamples "build gnuplot iostream examples" ON)
 
 # packages.
-find_package(Boost REQUIRED COMPONENTS
-    iostreams system filesystem
-)
+if (NOT TARGET Boost::iostreams)
+  find_package(Boost REQUIRED COMPONENTS iostreams)
+endif()
+if (NOT TARGET Boost::system)
+  find_package(Boost REQUIRED COMPONENTS system)
+endif()
+if (NOT TARGET Boost::filesystem)
+  find_package(Boost REQUIRED COMPONENTS filesystem)
+endif()
+
 
 # Target.
 add_library(gnuplot_iostream INTERFACE)
